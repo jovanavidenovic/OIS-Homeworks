@@ -1,4 +1,4 @@
-var baza = 'TO SPREMENITE NA VAŠE UPORABNIŠKO IME';
+var baza = 'jovanav25';
 var baseUrl = 'https://teaching.lavbic.net/api/OIS/baza/' + baza + '/podatki/';
 
 

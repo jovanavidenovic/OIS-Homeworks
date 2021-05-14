@@ -23,7 +23,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Cepljenje proti COVID-19</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -46,7 +46,11 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p>Namen te aplikacije je obdelati podatke o možnih neželenih učinkih uporabnika
+              in uporabnika obvestiti o poteku procesa cepljenja proti virusu COVID-19 v Sloveniji.
+              Uporabnik se lahko prijavi z EHR ID ali pa v meniju izbere osebo, katere podatke želi videte.
+              Podatki ki se bo prikazali so: leto rojstva, BMI, datum 1. in 2. cepljenja, proizvajalec cepiva in mogoči neželjeni učinki po cepljenju.
+              Na levi strani, se vidi graf, ki predstavlja število cepljenih s 1. in 2. odmerkom cepiva.</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -56,7 +60,9 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p><a href="https://api.sledilnik.org/api/vaccinations">https://api.sledilnik.org/api/vaccinations</a> – API s katerim sledim število cepljenih s 1. in 2. odmerkom cepiva. <br>
+              <a href="https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki">https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki</a> – API, ki služi kot podatkovna baza, kjer so shranjeni ljudi, ki so cepljeni s 1. ali 2. odmerkom cepiva.
+            </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
