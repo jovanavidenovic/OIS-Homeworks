@@ -46,11 +46,11 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p>Namen te aplikacije je obdelati podatke o možnih neželenih učinkih uporabnika
-              in uporabnika obvestiti o poteku procesa cepljenja proti virusu COVID-19 v Sloveniji.
-              Uporabnik se lahko prijavi z EHR ID ali pa v meniju izbere osebo, katere podatke želi videte.
-              Podatki ki se bo prikazali so: leto rojstva, BMI, datum 1. in 2. cepljenja, proizvajalec cepiva in mogoči neželjeni učinki po cepljenju.
-              Na levi strani, se vidi graf, ki predstavlja število cepljenih s 1. in 2. odmerkom cepiva.</p>
+            <p>Namen te aplikacije je obdelati podatke o možnih neželenih učinkih cepljenja proti virusu COVID-19 v Sloveniji.
+              Uporabniki so lahko vsi, ki se želijo o tem informirati.
+              Uporabnik se lahko prijavi z EHR ID ali pa v meniju izbere osebo, katere podatke želi videti.
+              Podatki ki se bo prikazali so: EHR ID, ime, priimek, leto rojstva, BMI, datum s 1. in 2. odmerkom cepiva, proizvajalec cepiva in neželeni učinki po cepljenju.
+              Na levi je graf, ki prikazuje odstotek neželenih učinkov cepiva za vsako cepivo, ki je na voljo v Sloveniji.</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -60,8 +60,12 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><a href="https://api.sledilnik.org/api/vaccinations">https://api.sledilnik.org/api/vaccinations</a> – API s katerim sledim število cepljenih s 1. in 2. odmerkom cepiva. <br>
-              <a href="https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki">https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki</a> – API, ki služi kot podatkovna baza, kjer so shranjeni ljudi, ki so cepljeni s 1. ali 2. odmerkom cepiva.
+            <p><a href = https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki>https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki</a> – API, ki služi kot podatkovna baza, kjer sem shranila podatke o ljudeh, ki so po cepljenu imali neželene učinke.
+              <a href = https://www.nijz.si/sites/www.nijz.si/files/uploaded/tedensko_porocilo_nu_covid19_2021_18.pdf> https://www.nijz.si/sites/www.nijz.si/files/uploaded/tedensko_porocilo_nu_covid19_2021_18.pdf</a>
+              – dokument, objavljen 12.5. 2021,
+              ki vključuje podatke o neželenih učinkih cepljenja proti COVID-19 od začetka cepljenja 27.12.2020 do vključno 9.5.2021.
+              Podatke, ki sem potrebovala iz dokumenta, sem prenesla v vsebina.json in to vključila v repozitorij.
+              Iz vsebina.json sem kasneje prebrala podatke uz getJSON() – vrstice 148-158, koda.js.
             </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
