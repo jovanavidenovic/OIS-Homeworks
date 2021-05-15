@@ -40,13 +40,51 @@
 
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
-    <div class="col-lg-6 col-md-6 col-sm-6">
+
+    <!-- NEZELJENE REAKCIJE -->
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8"><b>Neželeni učinki po cepljenju</b></div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <select class="form-control input-sm" id="preberiObstojeciEHRzaNU">
+                  <option value = ""></option>
+                  <option value = "1">Alisa Novak</option>
+                  <option value = "2">Martin Novak</option>
+                  <option value = "3">Vesna Novak</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="panel-body">
+                <span class="label label-default">EHR ID</span><input id="dodajEHR" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+                <span class="label label-default">Datum in ura</span><input id="dodajDatumInUra" type="text" class="form-control input-mini" placeholder="2021-05-15">
+                <span class="label label-default">Telesna temperatura</span><div class="input-group"><input id="dodajTelesnaTemperatura" type="text" class="form-control input-mini" placeholder="36.50"><span class="input-group-addon">°C</span></div>
+                <span class="label label-default">Osebni zdravnik</span><input id="dodajZdravnik" type="text" class="form-control input-mini" placeholder="Leona Novak">
+                <span class="label label-default">Neželeni učinki</span><input id="dodajNezeleneUcinke" type="text" class="form-control input-mini" placeholder="povišena telesna temperatura / oteklina na mestu cepljenja / ...">
+              <br>
+              <center>
+                  <button type="button" class="btn btn-primary btn-xs" onclick="dodajNezeleneUcinke()">Dodajte neželene učinke</button><span id="dodajNezeleneUcinkeSporocilo"></span>
+                </center>
+                </div>
+              </div>
+            </div>
+          </div>
+      <div id="chartContainer" style="height: 350px; width: 45%; margin-left: 50%"></div>
+    </div>
+
+    <!-- INFORMACIJE -->
+
+    <div class = "row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8"><b>Informacije o cepljenju osebe</b></div>
             <div class="col-lg-4 col-md-4 col-sm-4">
-              <select class="form-control input-sm" id="preberiObstojeciEHR">
+              <select class="form-control input-sm" id="preberiObstojeciEHRzaINFO">
                 <option value = ""></option>
                 <option value = "1">Alisa Novak</option>
                 <option value = "2">Martin Novak</option>
@@ -56,14 +94,18 @@
           </div>
 
           <div class="panel-body">
-            <span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-            <button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodOsebe()">Prikaži osnovne informacije o cepljenju osebe</button><span id="preberiSporocilo"></span>
-          </div>
+            <center>
+              <button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodOsebe()">Prikaži osnovne informacije o cepljenju osebe</button><span id="preberiSporocilozaINFO"></span>
+            </center>
+              </div>
         </div>
       </div>
+      </div>
     </div>
-    <div id="chartContainer" style="height: 500px; width: 55%; margin-left: 45%"></div>
-  </div>
+
+
+    </div>
+
   <!-- KONEC: Vsebina aplikacije -->
 
 </body>

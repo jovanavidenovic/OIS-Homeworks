@@ -10,6 +10,8 @@ var baseUrl = 'https://teaching.lavbic.net/api/OIS/baza/' + baza + '/podatki/';
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
+
+
 function generirajPodatke(stPacienta) {
 
   var ehrID = osebe[stPacienta].ehrID;
@@ -18,10 +20,10 @@ function generirajPodatke(stPacienta) {
     ime: osebe[stPacienta].ime,
     priimek: osebe[stPacienta].priimek,
     letoRojstva: osebe[stPacienta].letoRojstva,
+    zdravnik: osebe[stPacienta].zdravnik,
     prvoCepDatum: osebe[stPacienta].prvoCepDatum,
     drugoCepDatum: osebe[stPacienta].drugoCepDatum,
     cepiloProizv: osebe[stPacienta].cepiloProizv,
-    BMI: osebe[stPacienta].BMI,
     NU: osebe[stPacienta].NU
   };
 
@@ -55,8 +57,9 @@ var osebe = {
     prvoCepDatum: "2021-04-7",
     drugoCepDatum: "2021-04-28",
     cepiloProizv: "Comirnaty",
-    BMI: "20.7",
-    NU: "povišana telesna temperatura"
+    zdravnik: "Ana Novak",
+    //telesnaTemperatura: "38.5",
+    NU: [{datumInUra:"2021-04-29", telesnaTemperatura: "38.1", nezeleniUcinki: "povišana telesna temperatura"}]
   },
 
   2:{
@@ -67,8 +70,9 @@ var osebe = {
     prvoCepDatum: "2021-02-04",
     drugoCepDatum: "2021-02-25",
     cepiloProizv: "Moderna",
-    BMI: "23",
-    NU: "vrtoglavica"
+    zdravnik: "Leona Novak",
+  //  telesnaTemperatura: "37.1",
+    NU: [{datumInUra:"2021-02-28", telesnaTemperatura: "37.2", nezeleniUcinki: "vrtoglavica"}]
   },
 
   3:{
@@ -79,85 +83,170 @@ var osebe = {
     prvoCepDatum: "2021-01-05",
     drugoCepDatum: "2021-04-07",
     cepiloProizv: "AstraZeneca",
-    BMI: "23",
-    NU: "povišana telesna temperatura"
+    zdravnik: "Sara Novak",
+//    telesnaTemperatura: "37.9",
+    NU: [{datumInUra:"2021-04-10", telesnaTemperatura: "38.2", nezeleniUcinki: "povišena telesna temperatura"}]
   }
 };
 
 function preberiEHRodOsebe(){
-  var ehrID = $("#preberiEHRid").val();
-  if (!ehrID || ehrID.trim().length == 0) {
-    $("#preberiSporocilo").html("<span class='obvestilo label label-warning " +
-        "fade-in'>Prosim vnesite zahtevan podatek!");
-  } else {
-    $.ajax({
+
+  var stOsebe = document.getElementById("preberiObstojeciEHRzaINFO").value;
+  var ehrID = osebe[stOsebe].ehrID;
+  var podatkioNU ="";
+
+  $.ajax({
+    url: baseUrl + "vrni/" + ehrID + "|" + "NU",
+    type:"GET",
+    async:false,
+    success: function (podatki) {
+      podatki.forEach(podatek => {
+        podatkioNU += podatek.datumInUra + " => " + podatek.nezeleniUcinki
+        + " (telesna temperatura: " + podatek.telesnaTemperatura + " °C);" + "\n";
+      });
+    },
+    error: function(err) {
+          console.log("napaka");
+      }
+    });
+
+  console.log(podatkioNU);
+
+      $.ajax({
       url: baseUrl + "vrni/" + ehrID,
       type: "GET",
+      async: false,
       success: function (podatki) {
-        //pronalazak koja je osoba
-        var stOsebe;
-        if (ehrID === osebe[1].ehrID)
-          stOsebe = 1;
-        else if (ehrID === osebe[2].ehrID)
-          stOsebe = 2;
-        else stOsebe = 3;
-
-        /*
-        $("#preberiSporocilo").html("<span class='obvestilo label " +
-            "label-success fade-in'>" +
-            "<b>ehrID: </b>" + osebe[stOsebe].ehrID +
-            "<br> <b>ime: </b>" + osebe[stOsebe].ime +
-            "<br> <b>priimek: </b>" + osebe[stOsebe].priimek +
-            "<br> <b>leto rojstva: </b>" + osebe[stOsebe].letoRojstva +
-            "<br> <b>BMI: </b>" + osebe[stOsebe].BMI +
-            "<br> <b>datum prvega cepljenja: </b>" + osebe[stOsebe].prvoCepDatum +
-            "<br> <b>datum drugega cepljenja: </b>" + osebe[stOsebe].drugoCepDatum +
-            "<br> <b>cepilo proizvajalca: </b>" + osebe[stOsebe].cepiloProizv +
-            "</span>");
-      },*/
-
-        $("#preberiSporocilo").html("<div class='alert alert-primary' role='alert'> " +
-            "<b>ehrID: </b>" + osebe[stOsebe].ehrID +
-            "<br> <b>ime: </b>" + osebe[stOsebe].ime +
-            "<br> <b>priimek: </b>" + osebe[stOsebe].priimek +
-            "<br> <b>leto rojstva: </b>" + osebe[stOsebe].letoRojstva +
-            "<br> <b>BMI: </b>" + osebe[stOsebe].BMI +
-            "<br> <b>datum prvega cepljenja: </b>" + osebe[stOsebe].prvoCepDatum +
-            "<br> <b>datum drugega cepljenja: </b>" + osebe[stOsebe].drugoCepDatum +
-            "<br> <b>cepilo proizvajalca: </b>" + osebe[stOsebe].cepiloProizv +
-            "<br> <b>neželeni učinki: </b>" + osebe[stOsebe].NU +
+        $("#preberiSporocilozaINFO").html("<div class='alert alert-primary' role='alert'> " +
+            "<b>ehrID: </b>" + ehrID +
+            "<br> <b>ime: </b>" + podatki.ime +
+            "<br> <b>priimek: </b>" + podatki.priimek +
+            "<br> <b>osebni zdravnik: </b>" + podatki.zdravnik +
+            "<br> <b>leto rojstva: </b>" + podatki.letoRojstva +
+            "<br> <b>datum cepljenja s 1. odmerkom: </b>" + podatki.prvoCepDatum +
+            "<br> <b>datum cepljenja s 2. odmerkom: </b>" + podatki.drugoCepDatum +
+            "<br> <b>cepilo proizvajalca: </b>" + podatki.cepiloProizv +
+            "<br> <b>neželeni učinki: </b>" + podatkioNU +
             "</div>");
       },
-
-
-
-
       error: function(err) {
-        $("#preberiSporocilo").html("<span class='obvestilo label " +
+        $("#preberiSporocilozaINFO").html("<span class='obvestilo label " +
             "label-danger fade-in'>Napaka '" +
             JSON.parse(err.responseText).opis + "'!");
+      }
+    });
+
+
+}
+
+
+var procenat = 0;
+function pridobiPodatke(){
+  var dataPoints = [];
+  var stevilo1Cep = 0, stevilo2Cep = 0;
+  $.ajax({
+    url: 'https://api.sledilnik.org/api/summary',
+    type: "GET",
+    async: false,
+    success: function (podatki) {
+     stevilo1Cep = podatki.vaccinationSummary.value;
+     stevilo2Cep = podatki.vaccinationSummary.subValues.in;
+     procenat = Number(podatki.vaccinationSummary.subValues.percent);
+     console.log("Procenat je " + procenat);
+     dataPoints.push({ label: "s 1. odmerkom",  x: 1, y: stevilo1Cep});
+     dataPoints.push({ label: "s 2. odmerkom",  x: 2, y: stevilo2Cep});
+     console.log(stevilo1Cep + " " + stevilo2Cep);
+    },
+    error: function(err){
+      setTimeout(pridobiPodatke(), 100000);
+    }
+  });
+  return dataPoints;
+}
+
+function nacrtajGraf(){
+
+  var dataPoints = pridobiPodatke();
+  var chart = new CanvasJS.Chart("chartContainer", {
+    title:{
+      text: "Cepljenje proti COVID-19",
+      fontSize: 25,
+    },
+    subtitles: [{
+      text: "Delež cepljenih v Sloveniji proti COVID-19 (s 1 odmerkom): " + procenat + "%.",
+      fontSize: 15
+    }],
+    axisX: {
+      //title: "Proizvajalec cepiva",
+      //titleFontSize: 20,
+      //labelAngle: -30,
+      labelFontSize: 10,
+      labelFontFamily: "tahoma"
+
+    },
+    axisY: {
+      title: "Število cepljenih oseb",
+      maximum: 700000,
+      minimum: 0,
+      titleFontSize: 15,
+      titleFontFamily: "tahoma",
+      labelFontFamily: "tahoma",
+      labelFontSize: 10
+    },
+
+    data:[{
+      type: "column",
+      indexLabel: "{y}",
+      indexLabelPlacement: "outside",
+      indexLabelOrientation: "horizontal",
+      dataPoints: dataPoints
+    }]
+  });
+  chart.render();
+}
+
+function dodajNezeleneUcinke() {
+  var ehrID = $("#dodajEHR").val();
+  var datumInUra = $("#dodajDatumInUra").val();
+  var zdravnik = $("#dodajZdravnik").val();
+  var telesnaTemperatura = $("#dodajTelesnaTemperatura").val();
+  var nezeleniUcinki = $("#dodajNezeleneUcinke").val();
+
+  if (!ehrID || ehrID.trim().length == 0 ||
+      !datumInUra || datumInUra.trim().length == 0 ||
+      !zdravnik || zdravnik.trim().length == 0 ||
+      !telesnaTemperatura || telesnaTemperatura.trim().length == 0 ||
+      !nezeleniUcinki || nezeleniUcinki.trim().length == 0
+  ) {
+    $("#dodajNezeleneUcinkeSporocilo").html("<span class='obvestilo " +
+        "label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+  } else {
+    var podatki = {
+        datumInUra: datumInUra,
+        telesnaTemperatura: telesnaTemperatura,
+        nezeleniUcinki: nezeleniUcinki
+    };
+
+    $.ajax({
+      url: baseUrl + "azuriraj?kljuc=" + ehrID +  "|" + "NU"+ "&elementTabele=true",
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(podatki),
+      success: function (odgovor) {
+        $("#dodajNezeleneUcinkeSporocilo").html(
+            "<span class='obvestilo label label-success fade-in'>" +
+            "Neželeni učinki po cepljenju za osebo " + ehrID + " so uspešno dodani" + ".</span>");
+      },
+      error: function(err) {
+        $("#dodajNezeleneUcinkeSporocilo").html(
+            "<span class='obvestilo label label-danger fade-in'>Napaka!</span>");
       }
     });
   }
 }
 
-var dataPoints = [];
-var steviloNU = 0;
-var steviloCEP = 0;
-
-$.getJSON("vsebina.json", function(data) {
-  for (var i = 0; i < data.length; i++) {
-    console.log(data[1].cepivo + " " + data[1].stNU);
-    var procenat = Number(data[i].stNU)/Number(data[i].stCepljenj) * 100;
-    procenat = Number(procenat.toFixed(2));
-    console.log(procenat);
-    dataPoints.push({ label: data[i].cepivo, index: procenat + "%",  x: i, y: procenat});
-    steviloNU += data[i].stNU;
-    steviloCEP += data[i].stCepljenj;
-    }
-});
-
-$(document).ready(function() {
+$(document).ready(function(){
+  nacrtajGraf();
 
   $("#generiraj").click(function(){
     generirajPodatke(1);
@@ -169,6 +258,14 @@ $(document).ready(function() {
   });
 
 
+  $('#preberiObstojeciEHRzaNU').change(function() {
+    $("#dodajNezeleneUcinkeSporocilo").html("");
+    var stOsebe = $(this).val();
+    $("#dodajEHR").val(osebe[stOsebe].ehrID);
+    $("#dodajZdravnik").val(osebe[stOsebe].zdravnik);
+  });
+
+
   $('#preberiObstojeciEHR').change(function() {
     $("#preberiSporocilo").html("");
     if($(this).val() !== ""){
@@ -176,41 +273,6 @@ $(document).ready(function() {
     } else  $("#preberiEHRid").val("");
 
   });
-
-
-
-    var chart = new CanvasJS.Chart("chartContainer", {
-      title:{
-        text: "Odstotek neželenih učinkov pri cepljenju proti COVID-19",
-        fontSize: 25,
-      },
-      subtitles: [{
-        text: "Skupno število cepljenj je: " + steviloCEP + ".",
-        fontSize: 15
-      }, {
-          text: "Skupno število prijav neželenih učinkov je: " + steviloNU + ".",
-          fontSize: 15
-      }],
-      axisX: {
-        title: "Proizvajalec cepiva",
-        titleFontSize: 20,
-        labelAngle: -30,
-        labelFontSize: 15
-      },
-      axisY: {
-        title: "Odstotek neželenih učinkov",
-        titleFontSize: 20,
-        labelFontSize: 15
-      },
-
-      data:[{
-          indexLabel: "{y}%",
-          indexLabelPlacement: "outside",
-          indexLabelOrientation: "horizontal",
-          dataPoints: dataPoints
-      }]
-    });
-    chart.render();
 });
 
 // TODO: Tukaj implementirate funkcionalnost, ki jo podpira vaša aplikacija
