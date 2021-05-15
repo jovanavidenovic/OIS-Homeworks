@@ -31,7 +31,7 @@
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
           <li><a href="#" id = "generiraj">Generiranje podatkov</a></li>
-          <li><a href="#">Blockchain certifikat kakovosti</a></li>
+          <li><a href='https://ropsten.etherscan.io/address/0xA5DF080A987636eA7F807636A08b29e003D60F7B' target='_blank'>Blockchain certifikat kakovosti</a></li>
         </ul>
       </div>
     </div>
@@ -57,15 +57,16 @@
 
           <div class="panel-body">
             <span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-            <button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodOsebe()">Preberi osnovne informacije o cepljenju osebe</button><span id="preberiSporocilo"></span>
+            <button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodOsebe()">Prikaži osnovne informacije o cepljenju osebe</button><span id="preberiSporocilo"></span>
           </div>
-
-
         </div>
       </div>
     </div>
+    <div id="chartContainer" style="height: 500px; width: 55%; margin-left: 45%"></div>
   </div>
   <!-- KONEC: Vsebina aplikacije -->
 
 </body>
 </html>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
