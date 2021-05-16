@@ -252,17 +252,23 @@ $(document).ready(function(){
     generirajPodatke(1);
     generirajPodatke(2);
     generirajPodatke(3);
-    alert("Generirani so: \n" + osebe[1].ime + " " + osebe[1].priimek + " (" + osebe[1].ehrID + ") \n" +
-        osebe[2].ime + " " + osebe[2].priimek + " (" + osebe[2].ehrID + ") \n" +
-        osebe[3].ime + " " + osebe[3].priimek + " (" + osebe[1].ehrID + ")");
+    alert("Generirani so: \n" + osebe[1].ime + " " + osebe[1].priimek + " (ehrID: " + osebe[1].ehrID + ") \n" +
+        osebe[2].ime + " " + osebe[2].priimek + " (ehrID: " + osebe[2].ehrID + ") \n" +
+        osebe[3].ime + " " + osebe[3].priimek + " (ehrID: " + osebe[3].ehrID + ")");
   });
 
 
   $('#preberiObstojeciEHRzaNU').change(function() {
     $("#dodajNezeleneUcinkeSporocilo").html("");
     var stOsebe = $(this).val();
-    $("#dodajEHR").val(osebe[stOsebe].ehrID);
-    $("#dodajZdravnik").val(osebe[stOsebe].zdravnik);
+    console.log(stOsebe);
+    if(!stOsebe){
+      $("#dodajEHR").val("");
+      $("#dodajZdravnik").val("");
+    } else {
+      $("#dodajEHR").val(osebe[stOsebe].ehrID);
+      $("#dodajZdravnik").val(osebe[stOsebe].zdravnik);
+    }
   });
 
 
