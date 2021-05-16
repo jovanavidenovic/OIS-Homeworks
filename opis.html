@@ -46,17 +46,15 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p>Namen te aplikacije je obdelati podatke o ljudeh, ki imajo po cepljenju proti COVID-19 neželene učinke.
-              Moja ideja je bila, da so končni uporabniki ljudi, ki imajo neželene učinke po cepljenju in da lahko
-              z uporabo aplikacije obvestijo o tem zdravnike (zato je možnost, da se vpiše ime osebnega zdravnika pri prijavi neželenih učinkov).
-              Uporabnik se lahko prijavi z EHR ID ali v meniju izbere osebo, za katero želi vnesti podatke,
+            <p>Namen te aplikacije je da ljudi, ki imajo neželene učinke po cepljenju, lahko
+              z uporabo tega obvestijo zdravnike (zato obstaja možnost, da se vpiše ime osebnega zdravnika pri prijavi neželenih učinkov).
+              Uporabnik se lahko prijavi z EHR ID ali pa v meniju izbere osebo, za katero želi vnesti podatke,
               v tem primeru se v prijavi samodejno prikažeta ehrID in ime osebnega zdravnika.
               Poleg posebnega polja, kjer je mogoče vnesti neželeni učinek, ki ga ima oseba,
               obstaja tudi polje za vnos telesne temperature, ker je povišana telesna temperatura eden od najpogostejših neželenih učinkov.
               Za uspešno prijavo treba izpolniti vsa polja, nato pa se prijavljeni neželeni učinek shrani v TeachingAPI bazo.
-              Pri tem, mogoči prejšnji podatki o neželenih učinkih ne bodo izbrisani.
-              V spodnjem delu aplikacije je mogoče izbrati osebo, katere podatke želimo videti.
-              Podatki vključujejo ime, priimek, ime osebnega zdravnika, datume cepljenja, neželene učinke po cepljenju,...
+              Pri tem, prejšnji podatki o neželenih učinkih, če so obstajali, ne bodo izbrisani.
+              V spodnjem delu aplikacije je mogoče izbrati osebo, katere podatke o cepljenju želimo videti.
               Na levi strani je graf, ki prikazuje število cepljenih oseb s 1. in 2. odmerkom cepiva proti COVID-19,
               tako da so uporabniki obveščeni o postopku cepljenja v Sloveniji.
             </p>
@@ -84,8 +82,8 @@
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
             <p>Master/detail je uporabljen v delu aplikacije "Informacije o cepljenju osebe".
-              Najprej treba s seznama izbrati osebo, katere podatke želimo dobiti.
-              Pri kliku na gumb "Več podrobnosti", se prikažejo naslednje informacije te osebe:
+              Najprej treba s seznama (ki je implementiran kot drop-down menu) izbrati osebo, katere podatke želimo videti.
+              Pri kliku na gumb "Več podrobnosti", se prikažejo naslednji podatki te osebe:
               ehrID, ime, priimek, osebni zdravnik, leto rojstva, datum cepljenja s 1. odmerkom,
               datum cepljenja s 2. odmerkom, proizvajalec cepiva in neželeni učinki.
               Neželeni učinki so v TeachingAPI shranjeni kot seznam in se vsak element v tem delu prikaže v obliki:
@@ -100,8 +98,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p>Za vizualizacijo podatkov sem uporabil graf Canvas.js in mislim
-              da je to najbolj jasen način predstavitve podatkov o skupnem številu cepljenih v Sloveniji za uporabnike.
+            <p>Za vizualizacijo podatkov sem uporabila stolpični graf Canvas.js.
+              Mislim da je to najbolj ustrezen in zelo jasen način predstavitve podatkov o skupnem številu cepljenih v Sloveniji za vse uporabnike.
               Graf prikazuje število cepljenih s 1. ali 2. odmerkom cepiva in je tudi v podnaslovu naveden odstotek cepljenih prebivalcev (s 1. odmerkom cepiva) v Sloveniji.
             </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
