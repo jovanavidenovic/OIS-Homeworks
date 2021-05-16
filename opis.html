@@ -46,11 +46,20 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p>Namen te aplikacije je obdelati podatke o možnih neželenih učinkih cepljenja proti virusu COVID-19 v Sloveniji.
-              Uporabniki so lahko vsi, ki se želijo o tem informirati.
-              Uporabnik se lahko prijavi z EHR ID ali pa v meniju izbere osebo, katere podatke želi videti.
-              Podatki ki se bo prikazali so: EHR ID, ime, priimek, leto rojstva, BMI, datum s 1. in 2. odmerkom cepiva, proizvajalec cepiva in neželeni učinki po cepljenju.
-              Na levi je graf, ki prikazuje odstotek neželenih učinkov cepiva za vsako cepivo, ki je na voljo v Sloveniji.</p>
+            <p>Namen te aplikacije je obdelati podatke o ljudeh, ki imajo po cepljenju proti COVID-19 neželene učinke.
+              Moja ideja je bila, da so končni uporabniki ljudi, ki imajo neželene učinke po cepljenju in da lahko
+              z uporabo aplikacije obvestijo o tem zdravnike (zato je možnost, da se vpiše ime osebnega zdravnika pri prijavi neželenih učinkov).
+              Uporabnik se lahko prijavi z EHR ID ali v meniju izbere osebo, za katero želi vnesti podatke,
+              v tem primeru se v prijavi samodejno prikažeta ehrID in ime osebnega zdravnika.
+              Poleg posebnega polja, kjer je mogoče vnesti neželeni učinek, ki ga ima oseba,
+              obstaja tudi polje za vnos telesne temperature, ker je povišana telesna temperatura eden od najpogostejših neželenih učinkov.
+              Za uspešno prijavo treba izpolniti vsa polja, nato pa se prijavljeni neželeni učinek shrani v TeachingAPI bazo.
+              Pri tem, mogoči prejšnji podatki o neželenih učinkih ne bodo izbrisani.
+              V spodnjem delu aplikacije je mogoče izbrati osebo, katere podatke želimo videti.
+              Podatki vključujejo ime, priimek, ime osebnega zdravnika, datume cepljenja, neželene učinke po cepljenju,...
+              Na levi strani je graf, ki prikazuje število cepljenih oseb s 1. in 2. odmerkom cepiva proti COVID-19,
+              tako da so uporabniki obveščeni o postopku cepljenja v Sloveniji.
+            </p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -61,11 +70,9 @@
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
             <p><a href = https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki>https://teaching.lavbic.net/api/OIS/baza/jovanav25/podatki</a> – API, ki služi kot podatkovna baza, kjer sem shranila podatke o ljudeh, ki so po cepljenu imali neželene učinke.
-              <a href = https://www.nijz.si/sites/www.nijz.si/files/uploaded/tedensko_porocilo_nu_covid19_2021_18.pdf> https://www.nijz.si/sites/www.nijz.si/files/uploaded/tedensko_porocilo_nu_covid19_2021_18.pdf</a>
-              – dokument, objavljen 12.5. 2021,
-              ki vključuje podatke o neželenih učinkih cepljenja proti COVID-19 od začetka cepljenja 27.12.2020 do vključno 9.5.2021.
-              Podatke, ki sem potrebovala iz dokumenta, sem prenesla v vsebina.json in to vključila v repozitorij.
-              Iz vsebina.json sem kasneje prebrala podatke uz getJSON() – vrstice 148-158, koda.js.
+              <a href = https://api.sledilnik.org/api/summary>https://api.sledilnik.org/api/summary</a> - API, prek katerega vsak dan prejemam posodobljene podatke o številu cepljenih
+              s 1. in 2. odmerkom cepiva in o odstotku cepljenih s 1. odmerkom cepiva proti virisu COVID-19 v Sloveniji.
+
             </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
@@ -76,7 +83,14 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p>Master/detail je uporabljen v delu aplikacije "Informacije o cepljenju osebe".
+              Najprej treba s seznama izbrati osebo, katere podatke želimo dobiti.
+              Pri kliku na gumb "Več podrobnosti", se prikažejo naslednje informacije te osebe:
+              ehrID, ime, priimek, osebni zdravnik, leto rojstva, datum cepljenja s 1. odmerkom,
+              datum cepljenja s 2. odmerkom, proizvajalec cepiva in neželeni učinki.
+              Neželeni učinki so v TeachingAPI shranjeni kot seznam in se vsak element v tem delu prikaže v obliki:
+              datum => neželeni učinek (telesna temperatura: t°C);
+            </p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
@@ -86,7 +100,10 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p>Za vizualizacijo podatkov sem uporabil graf Canvas.js in mislim
+              da je to najbolj jasen način predstavitve podatkov o skupnem številu cepljenih v Sloveniji za uporabnike.
+              Graf prikazuje število cepljenih s 1. ali 2. odmerkom cepiva in je tudi v podnaslovu naveden odstotek cepljenih prebivalcev (s 1. odmerkom cepiva) v Sloveniji.
+            </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
