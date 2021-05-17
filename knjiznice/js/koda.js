@@ -43,6 +43,7 @@ function generirajPodatke(stPacienta) {
     }
   });
 
+
   return ehrID;
 }
 
@@ -92,27 +93,30 @@ var osebe = {
 function preberiEHRodOsebe(){
 
   var stOsebe = document.getElementById("preberiObstojeciEHRzaINFO").value;
-  var ehrID = osebe[stOsebe].ehrID;
-  var podatkioNU ="";
+  if(!stOsebe)
+    alert("Kliknite na generiranje podatkov in potem izberite osebo.");
+  else {
+    var ehrID = osebe[stOsebe].ehrID;
+    var podatkioNU = "";
 
-  $.ajax({
-    url: baseUrl + "vrni/" + ehrID + "|" + "NU",
-    type:"GET",
-    async:false,
-    success: function (podatki) {
-      podatki.forEach(podatek => {
-        podatkioNU += podatek.datumInUra + " => " + podatek.nezeleniUcinki
-        + " (telesna temperatura: " + podatek.telesnaTemperatura + " °C);" + "\n";
-      });
-    },
-    error: function(err) {
-          console.log("napaka");
+    $.ajax({
+      url: baseUrl + "vrni/" + ehrID + "|" + "NU",
+      type: "GET",
+      async: false,
+      success: function (podatki) {
+        podatki.forEach(podatek => {
+          podatkioNU += podatek.datumInUra + " => " + podatek.nezeleniUcinki
+              + " (telesna temperatura: " + podatek.telesnaTemperatura + " °C);" + "\n";
+        });
+      },
+      error: function (err) {
+        console.log("napaka");
       }
     });
 
-  console.log(podatkioNU);
+    console.log(podatkioNU);
 
-      $.ajax({
+    $.ajax({
       url: baseUrl + "vrni/" + ehrID,
       type: "GET",
       async: false,
@@ -129,13 +133,13 @@ function preberiEHRodOsebe(){
             "<br> <b>neželeni učinki: </b>" + podatkioNU +
             "</div>");
       },
-      error: function(err) {
+      error: function (err) {
         $("#preberiSporocilozaINFO").html("<span class='obvestilo label " +
             "label-danger fade-in'>Napaka '" +
             JSON.parse(err.responseText).opis + "'!");
       }
     });
-
+  }
 
 }
 
@@ -255,6 +259,16 @@ $(document).ready(function(){
     alert("Generirani so: \n" + osebe[1].ime + " " + osebe[1].priimek + " (ehrID: " + osebe[1].ehrID + ") \n" +
         osebe[2].ime + " " + osebe[2].priimek + " (ehrID: " + osebe[2].ehrID + ") \n" +
         osebe[3].ime + " " + osebe[3].priimek + " (ehrID: " + osebe[3].ehrID + ")");
+
+    document.getElementById("preberiObstojeciEHRzaNU").innerHTML = "<option value = ''>" + ""+ "</option>" + "\n" +
+        "<option value = 1>" + osebe[1].ehrID + "</option>" + "\n" +
+        "<option value = 2>" + osebe[2].ehrID + "</option>" + "\n" +
+        "<option value = 3>" + osebe[3].ehrID + "</option>";
+
+  document.getElementById("preberiObstojeciEHRzaINFO").innerHTML = "<option value = ''>" + ""+ "</option>" + "\n" +
+      "<option value = 1>" + osebe[1].ime + " " + osebe[1].priimek + "</option>" + "\n" +
+      "<option value = 2>" + osebe[2].ime + " " + osebe[2].priimek + "</option>" + "\n" +
+      "<option value = 3>" + osebe[3].ime + " " + osebe[3].priimek + "</option>";
   });
 
 
@@ -267,6 +281,9 @@ $(document).ready(function(){
       $("#dodajZdravnik").val("");
     } else {
       $("#dodajEHR").val(osebe[stOsebe].ehrID);
+      $("#dodajDatumInUra").val("");
+      $("#dodajTelesnaTemperatura").val("");
+      $("#dodajNezeleneUcinke").val("");
       $("#dodajZdravnik").val(osebe[stOsebe].zdravnik);
     }
   });
